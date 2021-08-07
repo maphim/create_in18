@@ -3,7 +3,7 @@ import './style.css';
 
 // Write Javascript code!
 
-const convertVietnameseCharacters = obj => {
+function convertVietnameseCharacters(obj) {
   let str = obj;
   str = str.toLowerCase();
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
@@ -22,19 +22,40 @@ const convertVietnameseCharacters = obj => {
   str = str.replace(/Đ/g, 'D');
   str = str.replace(/^\-+|\-+$/g, '');
   return str;
-};
+}
 
-const list = {};
+let list = {};
 
-const pushToList = () => {
-  const parent_key = document.querySelector('[placeholder="parent_key"]');
-  const text = document.querySelector('[placeholder="text"]');
+document.querySelector('button.push').addEventListener('click', function() {
+  try {
+    const parent_key = document.querySelector('[placeholder="parent_key"]')
+      .value;
+    const text = document.querySelector('[placeholder="text"]').value;
 
-  const key = convertVietnameseCharacters(text)
-    .replace(' ', '_')
-    .toLowerCase();
+    let key = convertVietnameseCharacters(text).replace(/\s+/gi, '_');
 
-  list[parent_key][key] = text;
+    if (!list[parent_key]) {
+      list[parent_key] = {};
+    }
 
-  document.querySelector('.result').text(JSON.stringify(list));
-};
+    list[parent_key][key] = text;
+
+    document.querySelector('.result').innerHTML = JSON.stringify(
+      list,
+      null,
+      '  '
+    );
+  } catch (e) {
+    console.log(e.message);
+  }
+});
+
+document.querySelector('button.reload').addEventListener('click', function() {
+  const json = document.querySelector('textarea').value;
+  try {
+    list = JSON.parse(json);
+    console.log(list);
+  } catch (e) {
+    console.log(e.message);
+  }
+});
