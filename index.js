@@ -20,7 +20,7 @@ function convertVietnameseCharacters(obj) {
   str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, 'Y');
   str = str.replace(/đ/g, 'd');
   str = str.replace(/Đ/g, 'D');
-  str = str.replace(/^\-+|\-+$/g, '');
+  str = str.replace(/\W+/g, '_');
   return str;
 }
 
