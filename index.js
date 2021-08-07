@@ -46,16 +46,19 @@ document.querySelector('button.push').addEventListener('click', function() {
       '  '
     );
   } catch (e) {
-    console.log(e.message);
+    console.error(e.message);
   }
 });
 
 document.querySelector('button.reload').addEventListener('click', function() {
-  const json = document.querySelector('textarea').value;
+  let json = document.querySelector('textarea').innerHTML;
+  // get value if html empty
+  if (!json) {
+    json = document.querySelector('textarea').value;
+  }
   try {
     list = JSON.parse(json);
-    console.log(list);
   } catch (e) {
-    console.log(e.message);
+    console.error(e.message);
   }
 });
