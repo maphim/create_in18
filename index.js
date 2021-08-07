@@ -43,6 +43,16 @@ document.querySelector('button.push').addEventListener('click', function() {
     console.log(list);
 
     document.querySelector('.result').value = JSON.stringify(list, null, '  ');
+
+    const html = Object.keys(list)
+      .map(parent => {
+        return Object.keys(parent)
+          .map(item => `{{'${parent}.${item}' | translate}}`)
+          .join('\n');
+      })
+      .join('\n');
+
+    document.querySelector('.result_label').value = html;
   } catch (e) {
     console.error(e.message);
   }
@@ -52,7 +62,15 @@ document.querySelector('button.reload').addEventListener('click', function() {
   let json = document.querySelector('textarea').value;
   try {
     list = JSON.parse(json);
-    console.log(list);
+    const html = Object.keys(list)
+      .map(parent => {
+        return Object.keys(parent)
+          .map(item => `{{'${parent}.${item}' | translate}}`)
+          .join('\n');
+      })
+      .join('\n');
+
+    document.querySelector('.result_label').value = html;
   } catch (e) {
     console.error(e.message);
   }
