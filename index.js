@@ -24,7 +24,7 @@ function convertVietnameseCharacters(obj) {
   return str;
 }
 
-let list = {};
+var list = {};
 
 document.querySelector('button.push').addEventListener('click', function() {
   try {
@@ -40,24 +40,19 @@ document.querySelector('button.push').addEventListener('click', function() {
 
     list[parent_key][key] = text;
 
-    document.querySelector('.result').innerHTML = JSON.stringify(
-      list,
-      null,
-      '  '
-    );
+    console.log(list);
+
+    document.querySelector('.result').value = JSON.stringify(list, null, '  ');
   } catch (e) {
     console.error(e.message);
   }
 });
 
 document.querySelector('button.reload').addEventListener('click', function() {
-  let json = document.querySelector('textarea').innerHTML;
-  // get value if html empty
-  if (!json) {
-    json = document.querySelector('textarea').value;
-  }
+  let json = document.querySelector('textarea').value;
   try {
     list = JSON.parse(json);
+    console.log(list);
   } catch (e) {
     console.error(e.message);
   }
